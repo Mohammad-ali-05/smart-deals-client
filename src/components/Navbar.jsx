@@ -115,7 +115,7 @@ const Navbar = () => {
                     <ul className="flex gap-8">{links}</ul>
                 </div>
                 <div className="navbar-end gap-4">
-                    <Link>
+                    <Link to={"/auth/login"}>
                         <button className="p-0.5 rounded-sm bg-linear-to-br from-[#632EE3] to-[#9F62F2] w-25 h-11">
                             <div className="bg-white rounded-sm w-full h-full flex justify-center items-center">
                                 <span className="font-semibold bg-linear-to-br from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">
@@ -124,7 +124,7 @@ const Navbar = () => {
                             </div>
                         </button>
                     </Link>
-                    <Link>
+                    <Link to={"/auth/register"}>
                         <button className="text-white font-semibold rounded-sm bg-linear-to-br from-[#632EE3] to-[#9F62F2] w-30 h-11 hidden xl:block">
                             Register
                         </button>

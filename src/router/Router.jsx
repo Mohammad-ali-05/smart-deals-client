@@ -5,6 +5,9 @@ import AllProducts from "../pages/allProducts/AllProducts";
 import MyProducts from "../pages/myProducts/MyProducts";
 import MyBids from "../pages/myBids/MyBids";
 import CreateProduct from "../pages/createProduct/CreateProduct";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/login/Login";
+import Register from "../pages/register/Register";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +40,20 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: "/auth",
+        element: <AuthLayout></AuthLayout>,
+        children: [
+            {
+                path: "login",
+                element: <Login></Login>
+            },
+            {
+                path: "register",
+                element: <Register></Register>
+            }
+        ]
+    }
 ]);
 
 export default router;

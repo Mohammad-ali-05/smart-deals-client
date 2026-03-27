@@ -8,6 +8,7 @@ import CreateProduct from "../pages/createProduct/CreateProduct";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -28,15 +29,27 @@ const router = createBrowserRouter([
             },
             {
                 path: "my-products",
-                element: <MyProducts></MyProducts>,
+                element: (
+                    <PrivateRoute>
+                        <MyProducts></MyProducts>
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "my-bids",
-                element: <MyBids></MyBids>,
+                element: (
+                    <PrivateRoute>
+                        <MyBids></MyBids>
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "create-product",
-                element: <CreateProduct></CreateProduct>,
+                element: (
+                    <PrivateRoute>
+                        <CreateProduct></CreateProduct>
+                    </PrivateRoute>
+                ),
             },
         ],
     },
@@ -46,14 +59,14 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "login",
-                element: <Login></Login>
+                element: <Login></Login>,
             },
             {
                 path: "register",
-                element: <Register></Register>
-            }
-        ]
-    }
+                element: <Register></Register>,
+            },
+        ],
+    },
 ]);
 
 export default router;

@@ -1,10 +1,11 @@
-import React from 'react';
+import React from "react";
+import SearchSection from "./components/SearchSection";
 
 const Home = () => {
     return (
-        <div>
-            Home is there
-        </div>
+        <>
+            <SearchSection></SearchSection>
+        </>
     );
 };
 

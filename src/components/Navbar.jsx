@@ -143,7 +143,7 @@ const Navbar = () => {
                         <>
                             <Link to={"/auth/login"}>
                                 <button className="p-0.5 rounded-sm bg-linear-to-br from-[#632EE3] to-[#9F62F2] w-25 h-11">
-                                    <div className="bg-white rounded-sm w-full h-full flex justify-center items-center">
+                                    <div className="bg-white rounded-xs w-full h-full flex justify-center items-center">
                                         <span className="font-semibold bg-linear-to-br from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">
                                             login
                                         </span>

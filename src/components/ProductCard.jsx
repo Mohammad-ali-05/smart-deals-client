@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
                 </h3>
                 <p className="text-[22px] font-bold bg-linear-to-br from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">{`$ ${product.price_min} - ${product.price_max}`}</p>
             </div>
-            <Link to={`/products/${product._id}`}>
+            <Link to={`/product-details/${product._id}`}>
                 <button className="p-0.5 rounded-sm bg-linear-to-br from-[#632EE3] to-[#9F62F2] w-full h-11">
                     <div className="bg-white rounded-xs w-full h-full flex justify-center items-center">
                         <span className="font-semibold bg-linear-to-br from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent">

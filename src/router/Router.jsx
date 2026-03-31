@@ -9,6 +9,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import PrivateRoute from "./PrivateRoute";
+import ProductDetails from "../pages/ProductDetails/ProductDetails";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,16 @@ const router = createBrowserRouter([
             {
                 path: "all-products",
                 element: <AllProducts></AllProducts>,
+            },
+            {
+                path: "product-details/:id",
+                loader: ({ params }) =>
+                    fetch(`http://localhost:3000/product-details/${params.id}`),
+                element: (
+                    <PrivateRoute>
+                        <ProductDetails></ProductDetails>
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "my-products",

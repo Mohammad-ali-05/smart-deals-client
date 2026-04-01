@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductInfo from "./components/ProductInfo";
 import { useLoaderData } from "react-router";
+import ProductBids from "./components/ProductBids";
 
 const ProductDetails = () => {
     const productData = useLoaderData();
+    const [bidsData, setBidsData] =useState([])
+    const [newBidPlaced, setNewBidPlaced] = useState(false);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/bids/by-product/${productData._id}`)
+            .then((res) => res.json())
+            .then((data) => setBidsData(data));
+    }, [productData, newBidPlaced]);
+
     return (
         <section className="bg-[#E9E9E9]">
             {/* Product info */}
-            <ProductInfo productData={productData}></ProductInfo>
+            <ProductInfo productData={productData} setNewBidPlaced={setNewBidPlaced} newBidPlaced={newBidPlaced}></ProductInfo>
             {/* bids for this product */}
-            <div className="max-w-400 w-full mx-auto p-20"></div>
+            <ProductBids bidsData={bidsData}></ProductBids>
         </section>
     );
 };

@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router";
 import MakeBidModal from "./MakeBidModal";
 
-const ProductInfo = ({ productData }) => {
+const ProductInfo = ({ productData, setNewBidPlaced, newBidPlaced }) => {
     const MakeBidModalRef = useRef(null);
     const {
         _id,
@@ -151,7 +151,7 @@ const ProductInfo = ({ productData }) => {
                     </button>
                 </div>
             </div>
-            <MakeBidModal MakeBidModalRef={MakeBidModalRef} _id={_id} price_min={price_min} price_max={price_max}></MakeBidModal>
+            <MakeBidModal MakeBidModalRef={MakeBidModalRef} setNewBidPlaced={setNewBidPlaced} newBidPlaced={newBidPlaced} _id={_id} price_min={price_min} price_max={price_max}></MakeBidModal>
         </div>
     );
 };

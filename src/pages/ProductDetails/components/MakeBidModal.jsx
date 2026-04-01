@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import Swal from "sweetalert2";
 
-const MakeBidModal = ({ MakeBidModalRef, _id, price_min, price_max }) => {
+const MakeBidModal = ({ MakeBidModalRef, setNewBidPlaced, newBidPlaced, _id, price_min, price_max }) => {
     const { user } = useContext(AuthContext);
     const { displayName, email, photoURL } = user;
-
-    console.log(_id);
 
     const handleBidFormSubmit = (e) => {
         e.preventDefault();
@@ -37,6 +35,7 @@ const MakeBidModal = ({ MakeBidModalRef, _id, price_min, price_max }) => {
             .then((data) => {
                 if (data.insertedId) {
                     MakeBidModalRef.current.close();
+                    setNewBidPlaced(!newBidPlaced)
                     Swal.fire({
                         position: "center",
                         icon: "success",

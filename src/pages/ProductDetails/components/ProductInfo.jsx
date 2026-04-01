@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router";
+import MakeBidModal from "./MakeBidModal";
 
 const ProductInfo = ({ productData }) => {
+    const MakeBidModalRef = useRef(null);
     const {
         _id,
         title,
@@ -27,6 +29,10 @@ const ProductInfo = ({ productData }) => {
 
     /* Formatting date to local string mm/dd/yyyy */
     const postedAt = new Date(created_at).toLocaleDateString("en-US");
+
+    const handleMakeBidModal = () => {
+        MakeBidModalRef.current.showModal();
+    };
 
     return (
         <div>
@@ -138,11 +144,14 @@ const ProductInfo = ({ productData }) => {
                             </dl>
                         </div>
                     </div>
-                    <button className="text-white text-xl font-semibold bg-linear-to-br from-[#632EE3] to-[#9F62F2] rounded-sm h-15">
-                        I want Buy This Product
+                    <button
+                        onClick={handleMakeBidModal}
+                        className="text-white text-xl font-semibold bg-linear-to-br from-[#632EE3] to-[#9F62F2] rounded-sm h-15">
+                        I want to Buy This Product
                     </button>
                 </div>
             </div>
+            <MakeBidModal MakeBidModalRef={MakeBidModalRef} _id={_id} price_min={price_min} price_max={price_max}></MakeBidModal>
         </div>
     );
 };

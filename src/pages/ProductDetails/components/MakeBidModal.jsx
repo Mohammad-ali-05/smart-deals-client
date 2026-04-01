@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import Swal from "sweetalert2";
 
 const MakeBidModal = ({ MakeBidModalRef, _id, price_min, price_max }) => {
     const { user } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const MakeBidModal = ({ MakeBidModalRef, _id, price_min, price_max }) => {
         const phoneNumber = e.target.elements.phoneNumber.value;
 
         const newBid = {
-            product_id: _id,
+            product: _id,
             buyer_image: imageUrl,
             buyer_name: userName,
             buyer_contact: phoneNumber,
@@ -25,17 +26,27 @@ const MakeBidModal = ({ MakeBidModalRef, _id, price_min, price_max }) => {
             status: "pending",
         };
 
-        console.log(newBid)
-
         fetch("http://localhost:3000/bids", {
             method: "POST",
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
             },
-            body: JSON.stringify(newBid)
+            body: JSON.stringify(newBid),
         })
             .then((res) => res.json())
-            .then((data) => console.log("After placing bid",data));
+            .then((data) => {
+                if (data.insertedId) {
+                    MakeBidModalRef.current.close();
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Your Bid has been placed",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    e.target.reset();
+                }
+            });
     };
 
     /* Handle modal close with  */
@@ -138,7 +149,9 @@ const MakeBidModal = ({ MakeBidModalRef, _id, price_min, price_max }) => {
                             />
                             <div className="flex flex-row-reverse items-center gap-4">
                                 {/* Button for submitting form */}
-                                <button type="submit" className="text-white font-semibold bg-linear-to-br from-[#632EE3] to-[#9F62F2] rounded-sm w-29 h-12 my-6">
+                                <button
+                                    type="submit"
+                                    className="text-white font-semibold bg-linear-to-br from-[#632EE3] to-[#9F62F2] rounded-sm w-29 h-12 my-6">
                                     Submit Bid
                                 </button>
                                 {/* Button for closing modal */}

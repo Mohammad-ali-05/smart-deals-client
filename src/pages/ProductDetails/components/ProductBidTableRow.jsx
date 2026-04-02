@@ -18,10 +18,10 @@ const ProductBidTableRow = ({ bidData, index }) => {
             <td className="font-medium p-4">{`$${bid_price}`}</td>
             <td className="font-medium p-4">
                 <div className="flex gap-2">
-                    <button className="font-medium text-[#4CAF50] border border-[#4CAF50] rounded-sm px-1.5 py-2">
+                    <button className="font-medium text-[#4CAF50] border border-[#4CAF50] rounded-sm px-2 py-1.5">
                         Accept Offer
                     </button>
-                    <button className="font-medium text-[#FF3D00] border border-[#FF3D00] rounded-sm px-1.5 py-2">
+                    <button className="font-medium text-[#FF3D00] border border-[#FF3D00] rounded-sm px-2 py-1.5">
                         Reject offer
                     </button>
                 </div>

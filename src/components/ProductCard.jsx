@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router";
 
 const ProductCard = ({ product }) => {
-    console.log(product);
     return (
         <div className="bg-white rounded-lg p-4">
             <div className="bg-[#D9D9D9] rounded-lg aspect-video">

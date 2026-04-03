@@ -143,7 +143,7 @@ const MakeBidModal = ({ MakeBidModalRef, setNewBidPlaced, newBidPlaced, _id, pri
                                 id="phoneNumber"
                                 autoComplete="tel"
                                 className="border-2 border-[#E9E9E9] w-full h-10 pl-3 rounded-sm mb-6"
-                                placeholder={"https://...your_img_url"}
+                                placeholder={"e.g. +1-555-1234"}
                                 required
                             />
                             <div className="flex flex-row-reverse items-center gap-4">

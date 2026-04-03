@@ -86,7 +86,11 @@ const ProductInfo = ({ productData, setNewBidPlaced, newBidPlaced }) => {
                         </div>
                     </div>
                     <div className="bg-white rounded-lg p-6">
-                        <p className="text-[#4CAF50] text-[28px] font-bold">{`$${price_min} - ${price_max}`}</p>
+                        <p className="text-[#4CAF50] text-[28px] font-bold">
+                            {price_min === price_max
+                                ? `$${price_min}`
+                                : `$${price_min} - ${price_max}`}
+                        </p>
                         <p className="text-[#001931]">Price starts from</p>
                     </div>
                     <div className="text-[#001931] bg-white rounded-lg p-6">
@@ -114,7 +118,7 @@ const ProductInfo = ({ productData, setNewBidPlaced, newBidPlaced }) => {
                                     <img
                                         src={seller_image}
                                         alt=""
-                                        className="w-full h-full object-cover object-center"
+                                        className="w-full h-full rounded-full object-cover object-center"
                                     />
                                 </div>
                                 <div className="text-[#001931]">
@@ -151,7 +155,13 @@ const ProductInfo = ({ productData, setNewBidPlaced, newBidPlaced }) => {
                     </button>
                 </div>
             </div>
-            <MakeBidModal MakeBidModalRef={MakeBidModalRef} setNewBidPlaced={setNewBidPlaced} newBidPlaced={newBidPlaced} _id={_id} price_min={price_min} price_max={price_max}></MakeBidModal>
+            <MakeBidModal
+                MakeBidModalRef={MakeBidModalRef}
+                setNewBidPlaced={setNewBidPlaced}
+                newBidPlaced={newBidPlaced}
+                _id={_id}
+                price_min={price_min}
+                price_max={price_max}></MakeBidModal>
         </div>
     );
 };

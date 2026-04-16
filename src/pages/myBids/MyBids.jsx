@@ -9,7 +9,11 @@ const MyBids = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/bids?userEmail=${user.email}`)
+            fetch(`http://localhost:3000/bids?userEmail=${user.email}`,{
+                headers: {
+                    authentication : `Bearer ${user.accessToken}`
+                }
+            })
             .then((res) => res.json())
             .then((result) => setMyBids(result));
         }

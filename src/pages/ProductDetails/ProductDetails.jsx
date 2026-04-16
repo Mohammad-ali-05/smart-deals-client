@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductInfo from "./components/ProductInfo";
 import { useLoaderData } from "react-router";
 import ProductBids from "./components/ProductBids";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProductDetails = () => {
     const productData = useLoaderData();
-    const [bidsData, setBidsData] =useState([])
+    const { user } = useContext(AuthContext);
+    const [bidsData, setBidsData] = useState([]);
     const [newBidPlaced, setNewBidPlaced] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/bids/by-product/${productData._id}`)
+        fetch(`http://localhost:3000/bids/by-product/${productData._id}`, {
+            headers: {
+                authentication: `Bearer ${user.accessToken}`,
+            },
+        })
             .then((res) => res.json())
             .then((data) => setBidsData(data));
-    }, [productData, newBidPlaced]);
+    }, [productData, newBidPlaced, user]);
 
     return (
         <section className="bg-[#E9E9E9]">

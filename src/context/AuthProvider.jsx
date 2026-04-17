@@ -11,7 +11,7 @@ import {
 import { auth } from "../firebase/firebase.init";
 
 const AuthProvider = ({ children }) => {
-    const googleProvider = new GoogleAuthProvider()
+    const googleProvider = new GoogleAuthProvider();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -24,17 +24,33 @@ const AuthProvider = ({ children }) => {
     };
 
     const googleLogin = () => {
-        return signInWithPopup(auth, googleProvider)
-    }
+        return signInWithPopup(auth, googleProvider);
+    };
 
     const logout = () => {
-        return signOut(auth)
-    }
+        return signOut(auth);
+    };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log(currentUser);
             setUser(currentUser);
+            if (currentUser) {
+                const loggedUser = { email: currentUser.email };
+                fetch("http://localhost:3000/get-token", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                    body: JSON.stringify(loggedUser),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                         localStorage.setItem("token", data.token)
+                    });
+            } else {
+                localStorage.removeItem("token")
+            }
         });
         return () => {
             unsubscribe();
@@ -48,7 +64,7 @@ const AuthProvider = ({ children }) => {
         createUser,
         signInUser,
         googleLogin,
-        logout
+        logout,
     };
 
     return <AuthContext value={authInfo}>{children}</AuthContext>;

@@ -4,18 +4,23 @@ import MyBidsTable from "./components/MyBidsTable";
 
 const MyBids = () => {
     const [myBids, setMyBids] = useState([]);
-    const [deleteBids, setDeleteBids] = useState(false)
+    const [deleteBids, setDeleteBids] = useState(false);
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/bids?userEmail=${user.email}`,{
+            fetch(`http://localhost:3000/bids?userEmail=${user.email}`, {
+                // headers for JWT token
+                headers: {
+                    authentication: `Bearer ${localStorage.getItem("token")}`,
+                },
+                /* // headers for firebase token
                 headers: {
                     authentication : `Bearer ${user.accessToken}`
-                }
+                } */
             })
-            .then((res) => res.json())
-            .then((result) => setMyBids(result));
+                .then((res) => res.json())
+                .then((result) => setMyBids(result));
         }
     }, [user, deleteBids]);
 
@@ -27,7 +32,10 @@ const MyBids = () => {
                     {String(myBids?.length ?? 0).padStart(2, "0")}
                 </span>
             </h2>
-            <MyBidsTable myBids={myBids} deleteBids={deleteBids} setDeleteBids={setDeleteBids}></MyBidsTable>
+            <MyBidsTable
+                myBids={myBids}
+                deleteBids={deleteBids}
+                setDeleteBids={setDeleteBids}></MyBidsTable>
         </section>
     );
 };

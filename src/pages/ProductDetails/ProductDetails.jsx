@@ -12,9 +12,14 @@ const ProductDetails = () => {
 
     useEffect(() => {
         fetch(`http://localhost:3000/bids/by-product/${productData._id}`, {
+            // headers for JWT token
+            headers: {
+                authentication: `Bearer ${localStorage.getItem("token")}`,
+            },
+            /* // headers for firebase token
             headers: {
                 authentication: `Bearer ${user.accessToken}`,
-            },
+            }, */
         })
             .then((res) => res.json())
             .then((data) => setBidsData(data));
@@ -23,7 +28,10 @@ const ProductDetails = () => {
     return (
         <section className="bg-[#E9E9E9]">
             {/* Product info */}
-            <ProductInfo productData={productData} setNewBidPlaced={setNewBidPlaced} newBidPlaced={newBidPlaced}></ProductInfo>
+            <ProductInfo
+                productData={productData}
+                setNewBidPlaced={setNewBidPlaced}
+                newBidPlaced={newBidPlaced}></ProductInfo>
             {/* bids for this product */}
             <ProductBids bidsData={bidsData}></ProductBids>
         </section>

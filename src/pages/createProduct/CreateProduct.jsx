@@ -1,12 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from "react-router";
-import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import axios from "axios";
+import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const CreateProduct = () => {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
+    const axiosInstance = useAxios();
+    const axiosSecureInstance = useAxiosSecure();
     const productCategories = [
         "Furniture",
         "Electronics",
@@ -59,19 +64,46 @@ const CreateProduct = () => {
             seller_contact: userContact,
         };
 
-        fetch("http://localhost:3000/products", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(newProduct),
-        })
-            .then((res) => res.json())
-            .then((result) => {
-                if (result.acknowledged) {
-                    e.target.reset();
-                }
-            });
+        /* Posting product using secure axios that intercepts and modify config to add token */
+        axiosSecureInstance.post("/products", newProduct).then((result) => {
+            if (result.data.acknowledged) {
+                toast.success(`Your product has been created`);
+                e.target.reset();
+            }
+        });
+
+        /* Posting product using axios instance */
+        // axiosInstance.post("/products", newProduct).then((result) => {
+        //     if (result.data.acknowledged) {
+        //         toast.success(`Your product has been created`);
+        //         e.target.reset();
+        //     }
+        // });
+
+        /* Posting product using Axios */
+        // axios.post("http://localhost:3000/products", newProduct)
+        //     .then((result) => {
+        //         if (result.data.acknowledged) {
+        //             toast.success(`Your product has been created`);
+        //             e.target.reset();
+        //         }
+        //     });
+
+        /* Posting product using Fetch */
+        // fetch("http://localhost:3000/products", {
+        //     method: "POST",
+        //     headers: {
+        //         "content-type": "application/json",
+        //     },
+        //     body: JSON.stringify(newProduct),
+        // })
+        //     .then((res) => res.json())
+        //     .then((result) => {
+        //         if (result.acknowledged) {
+        //             toast.success(`Your product has been created`)
+        //             e.target.reset();
+        //         }
+        //     });
     };
 
     return (

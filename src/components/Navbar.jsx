@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router";
-import { AuthContext } from "../context/AuthContext";
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout } = useAuth()
 
     const links = (
         <>

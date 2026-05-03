@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router";
-import { AuthContext } from "../../context/AuthContext";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
-    const { googleLogin } = useContext(AuthContext);
+    const { googleLogin } = useAuth()
     const handleGoogleLogin = () => {
         googleLogin()
             .then((result) => {

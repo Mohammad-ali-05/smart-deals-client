@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+import React from "react";
 import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 
 const MakeBidModal = ({ MakeBidModalRef, setNewBidPlaced, newBidPlaced, _id, price_min, price_max }) => {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth()
     const { displayName, email, photoURL } = user;
 
     const handleBidFormSubmit = (e) => {
@@ -129,7 +129,7 @@ const MakeBidModal = ({ MakeBidModalRef, setNewBidPlaced, newBidPlaced, _id, pri
                                 min={price_min}
                                 max={price_max}
                                 className="border-2 border-[#E9E9E9] w-full h-10 pl-3 rounded-sm mb-6"
-                                placeholder={"https://...your_img_url"}
+                                placeholder={"Place your price here..."}
                                 required
                             />
                             <label

@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 const PrivateRoute = ({ children }) => {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {

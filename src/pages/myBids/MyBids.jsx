@@ -1,28 +1,38 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useEffect, useState } from "react";
 import MyBidsTable from "./components/MyBidsTable";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyBids = () => {
     const [myBids, setMyBids] = useState([]);
     const [deleteBids, setDeleteBids] = useState(false);
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
+    const axiosSecureInstance = useAxiosSecure();
 
+    /* Getting my bids using axios secure and interceptor */
     useEffect(() => {
-        if (user?.email) {
-            fetch(`http://localhost:3000/bids?userEmail=${user.email}`, {
-                // headers for JWT token
-                headers: {
-                    authentication: `Bearer ${localStorage.getItem("token")}`,
-                },
-                /* // headers for firebase token
-                headers: {
-                    authentication : `Bearer ${user.accessToken}`
-                } */
-            })
-                .then((res) => res.json())
-                .then((result) => setMyBids(result));
-        }
-    }, [user, deleteBids]);
+        axiosSecureInstance
+            .get(`http://localhost:3000/bids?userEmail=${user.email}`)
+            .then((result) => setMyBids(result.data));
+    }, [user, axiosSecureInstance, deleteBids]);
+
+    /* Getting my bids using fetch */
+    // useEffect(() => {
+    //     if (user?.email) {
+    //         fetch(`http://localhost:3000/bids?userEmail=${user.email}`, {
+    //             // headers for JWT token
+    //             headers: {
+    //                 authentication: `Bearer ${localStorage.getItem("token")}`,
+    //             },
+    //             // headers for firebase token
+    //             // headers: {
+    //             //     authentication : `Bearer ${user.accessToken}`
+    //             // }
+    //         })
+    //             .then((res) => res.json())
+    //             .then((result) => setMyBids(result));
+    //     }
+    // }, [user, deleteBids]);
 
     return (
         <section className="bg-[#E9E9E9] p-20">

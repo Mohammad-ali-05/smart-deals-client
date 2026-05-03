@@ -7,7 +7,7 @@ import useAuth from "../../hooks/useAuth";
 
 const ProductDetails = () => {
     const productData = useLoaderData();
-    const { user } = useAuth()
+    const { user } = useAuth();
     const [bidsData, setBidsData] = useState([]);
     const [newBidPlaced, setNewBidPlaced] = useState(false);
 
@@ -15,10 +15,13 @@ const ProductDetails = () => {
         axios
             .get(`http://localhost:3000/bids/by-product/${productData._id}`, {
                 headers: {
-                    authentication: `Bearer ${user.accessToken}`,
+                    authorization: `Bearer ${user.accessToken}`,
                 },
             })
-            .then((data) => setBidsData(data.data))
+            .then((data) => {
+                console.log(data);
+                setBidsData(data.data);
+            })
             .catch((error) => console.log(error));
     }, [productData, newBidPlaced, user]);
 
